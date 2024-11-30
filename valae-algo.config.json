@@ -1,0 +1,12 @@
+{
+  "nombre": "Vale.Algo",
+  "descripcion": "Ecosistema financiero basado en Algorand",
+  "version": "1.0.0",
+  "configuraciones": {
+    "stablecoin": "BDT",
+    "blockchain": "Algorand",
+    "apiKey": "tu_api_key_aqui",
+    "algodServer": "https://testnet-algorand.api.purestake.io/ps2",
+    "algodPort": 443
+  }
+}
