@@ -1,0 +1,72 @@
+const fs = require('fs'); // Módulo para manejar el sistema de archivos
+
+// Ruta del archivo JSON que usaremos
+const archivoJSON = 'vale_algo_config.json';
+
+// 1. Leer el contenido del archivo JSON
+function leerJSON() {
+  fs.readFile(archivoJSON, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error al leer el archivo JSON:', err);
+      return;
+    }
+    const jsonData = JSON.parse(data); // Convertir el contenido JSON a un objeto
+    console.log('Contenido del archivo JSON:', jsonData);
+  });
+}
+
+// 2. Escribir un nuevo contenido en el archivo JSON
+function escribirJSON(nuevoContenido) {
+  fs.writeFile(archivoJSON, JSON.stringify(nuevoContenido, null, 2), (err) => {
+    if (err) {
+      console.error('Error al escribir en el archivo JSON:', err);
+      return;
+    }
+    console.log('Archivo JSON actualizado con éxito.');
+  });
+}
+
+// 3. Actualizar una clave específica en el archivo JSON
+function actualizarJSON(clave, valor) {
+  fs.readFile(archivoJSON, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error al leer el archivo JSON para actualizar:', err);
+      return;
+    }
+
+    const jsonData = JSON.parse(data); // Convertir a objeto
+    jsonData[clave] = valor; // Actualizar la clave con el nuevo valor
+
+    fs.writeFile(archivoJSON, JSON.stringify(jsonData, null, 2), (err) => {
+      if (err) {
+        console.error('Error al actualizar el archivo JSON:', err);
+        return;
+      }
+      console.log(`Clave "${clave}" actualizada con éxito en el archivo JSON.`);
+    });
+  });
+}
+
+// Ejemplo de uso
+
+// Contenido inicial del archivo JSON
+const contenidoInicial = {
+  nombre: "Vale.Algo",
+  descripcion: "Ecosistema financiero basado en Algorand",
+  version: "1.0.0",
+  configuraciones: {
+    stablecoin: "BDT",
+    blockchain: "Algorand",
+    apiKey: "tu_api_key_aqui"
+  }
+};
+
+// Escribir el contenido inicial
+escribirJSON(contenidoInicial);
+
+// Leer el contenido del archivo JSON
+leerJSON();
+
+// Actualizar una clave específica
+actualizarJSON('version', '1.1.0');
+actualizarJSON('configuraciones', { stablecoin: "BDT", blockchain: "Algorand", apiKey: "nueva_api_key" });
